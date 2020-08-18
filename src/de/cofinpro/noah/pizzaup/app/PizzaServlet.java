@@ -24,39 +24,19 @@ public class PizzaServlet extends HttpServlet{
         response.setContentType("application/json");
         response.setHeader("Access-Control-Allow-Origin", "*");
 
-        Collection<Pizza> pizzen = DataStore.getInstance().getAll();
+        Collection<Pizza> pizzen = DataStore.getInstance().getAllPizzas();
         JsonArray pizzaArray = new JsonArray();
         for (Pizza pizzaObject: pizzen){
-            pizzaArray.add(pizzaObject.id);
-            pizzaArray.add(pizzaObject.name);
-            pizzaArray.add(pizzaObject.price);
-            pizzaArray.add(pizzaObject.zutaten);
-
+            JsonObject jsonpizza = new JsonObject();
+            jsonpizza.addProperty("id", pizzaObject.id);
+            jsonpizza.addProperty("name", pizzaObject.name);
+            jsonpizza.addProperty("price", pizzaObject.price);
+            jsonpizza.addProperty("imgsrc", pizzaObject.imgsrc);
+            jsonpizza.addProperty("zutaten", pizzaObject.zutaten);
+            pizzaArray.add(jsonpizza);
         }
         PrintWriter out = response.getWriter();
-/*
-
-        String pizzastring = "[";
-        for(Pizza pizza: pizzen){
-            pizzastring += "{\n";
-            pizzastring += "\"id\": " + pizza.id + ",\n";
-            pizzastring += "\"name\": \"" + pizza.name + "\",\n";
-            pizzastring += "\"price\": " + pizza.price + ",\n";
-            pizzastring += "\"zutaten\": \"" + pizza.zutaten + "\"\n";
-            pizzastring += "},";
-        }
-        pizzastring = pizzastring.substring(0, pizzastring.length()-1);
-        pizzastring += "]";
-        out.println(pizzastring);
-        out.println("neues Jsonobjekt");
-*/
-
-
-        //mit den korrekten JSon Format muss noch rumgespielt werden.
-        for(int i = 0; i <= pizzaArray.size(); i++){
-            out.println(pizzaArray.get(i).toString() + ",");
-            
-        }
+        out.println(pizzaArray.toString());
 
     }
 
@@ -73,9 +53,10 @@ public class PizzaServlet extends HttpServlet{
         int id = Integer.parseInt(obj.get("id").getAsString());
         String name = obj.get("name").getAsString();
         double price = Double.parseDouble(obj.get("price").getAsString());
+        String imgsrc = obj.get("imgsrc").getAsString();
         String zutaten = obj.get("zutaten").getAsString();
 
-        DataStore.getInstance().putPizza(new Pizza(id, name, price, zutaten));
+        DataStore.getInstance().putPizza(new Pizza(id, name, price, imgsrc, zutaten));
     }
 }
 

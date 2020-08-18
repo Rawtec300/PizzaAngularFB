@@ -4,12 +4,14 @@ public class Pizza{
     int id;
     String name;
     double price;
+    String imgsrc;
     String zutaten;
 
-    public Pizza(int pId, String pName, double pPrice, String pZutaten){
+    public Pizza(int pId, String pName, double pPrice, String pimgsrc, String pZutaten){
         id = pId;
         name = pName;
         price = pPrice;
+        imgsrc = pimgsrc;
         zutaten = pZutaten;
     }
 
