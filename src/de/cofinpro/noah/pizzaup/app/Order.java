@@ -1,6 +1,7 @@
 package de.cofinpro.noah.pizzaup.app;
 
 public class Order {
+    int id;
     String pizza;
     Customer customer;
     public Order(String pPizza, Customer pCustomer){

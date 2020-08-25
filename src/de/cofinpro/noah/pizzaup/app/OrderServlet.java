@@ -28,6 +28,7 @@ public class OrderServlet extends HttpServlet {
         for (Order orderObject : orders) {
             JsonObject jsonorder = new JsonObject();
             JsonObject customer = new JsonObject();
+            jsonorder.addProperty("id", orderObject.id);
             jsonorder.addProperty("pizza", orderObject.pizza);
             customer.addProperty("name", orderObject.customer.name);
             customer.addProperty("address", orderObject.customer.address);
@@ -47,11 +48,12 @@ public class OrderServlet extends HttpServlet {
         String input = reader.lines().collect(Collectors.joining("\n"));
 
         JsonObject object = new JsonParser().parse(input).getAsJsonObject();
+        JsonObject customerObject = object.get("customer").getAsJsonObject();
 
         String pizza = object.get("pizza").getAsString();
-        String customerName = object.get("name").getAsString();
-        String customerAddress = object.get("address").getAsString();
-        String customerPhone = object.get("phone").getAsString();
+        String customerName = customerObject.get("name").getAsString();
+        String customerAddress = customerObject.get("address").getAsString();
+        String customerPhone = customerObject.get("phone").getAsString();
         Customer customer = new Customer(customerName, customerAddress, customerPhone);
 
         DataStore.getInstance().putOrder(new Order(pizza, customer));

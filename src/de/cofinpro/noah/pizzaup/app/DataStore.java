@@ -7,7 +7,7 @@ import java.util.Map;
 public class DataStore {
     //Map of names to Pizza instances
     private Map<String, Pizza> pizzaMap = new HashMap<>();
-    private Map<String, Order> orders = new HashMap<>();
+    private Map<Integer, Order> orders = new HashMap<>();
 
     //this class is a singleton and should not be instantiated directly
     private static DataStore instance = new DataStore();
@@ -22,7 +22,7 @@ public class DataStore {
         pizzaMap.put("Pepperoni", new Pizza(12, "Pepperoni", 6, "Pepperoni1.jpg", "Tomatensauce, Pepperonisalami, Mozzarella"));
         pizzaMap.put("Pulled Pork", new Pizza(18, "Pulled Pork", 7, "PulledPork1.jpg", "BBQ Sauce, Pulled Pork, Mozzarella"));
         pizzaMap.put("White", new Pizza(20, "White", 6, "White1.jpg", "Schinken, Mozzarella, Pfeffer, Olivenöl"));
-        orders.put("Max", new Order("Salami", new Customer("Max Musterman", "Bergstraße 1", "01511234567")));
+        orders.put(1, new Order("Salami", new Customer("Max Musterman", "Bergstraße 1", "01511234567")));
     }
 
     public Pizza getPizza(String pizza) {
@@ -37,8 +37,18 @@ public class DataStore {
         return orders.values();
     }
 
-    public void putOrder (Order order) {
-        orders.put(order.getCustomer().getName(), order);
+    public void putOrder(Order order) {
+        int key = 2;
+        boolean checker = false;
+        do {
+            if(orders.containsKey(key)){
+                key++;
+                checker = true;
+            } else {
+                checker = false;
+            }
+        }while (checker);
+        orders.put(key, order);
     }
 
     public void putPizza(Pizza pizza) {
