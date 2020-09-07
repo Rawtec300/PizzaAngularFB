@@ -1,13 +1,13 @@
 package de.cofinpro.noah.pizzaup.app;
 
-public class Pizza{
+public class Pizza {
     int id;
     String name;
     double price;
     String imgsrc;
     String zutaten;
 
-    public Pizza(int pId, String pName, double pPrice, String pimgsrc, String pZutaten){
+    public Pizza(int pId, String pName, double pPrice, String pimgsrc, String pZutaten) {
         id = pId;
         name = pName;
         price = pPrice;
@@ -15,19 +15,19 @@ public class Pizza{
         zutaten = pZutaten;
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public int getId(){
+    public int getId() {
         return this.id;
     }
 
-    public double getPrice(){
+    public double getPrice() {
         return this.price;
     }
 
-    public String getZutaten(){
+    public String getZutaten() {
         return this.zutaten;
     }
 }
